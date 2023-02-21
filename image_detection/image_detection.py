@@ -9,7 +9,7 @@ from threading import Thread
 from matplotlib import pyplot as plt
 
 sea_ocean = os.listdir("../dataset/sea_ocean/")
-img = sea_ocean[1]  # 838s.jpg
+img = sea_ocean[0]  # 838s.jpg
 
 img = cv2.imread("../dataset/sea_ocean/" + img)
 
@@ -20,7 +20,6 @@ list_distance = []
 
 
 ############################# class
-
 
 class Vector:
     def __int__(self, source, destination, normal):
@@ -34,25 +33,8 @@ class Vector:
     def display(self):
         return "source: ", self.source, " to: ", self.destination, " size: ", self.normal
 
-class Distance(Thread):
-    def __int__(self, image_kp_dico, keypoint):
-        self.image_kp_dico = image_kp_dico
-        self.keypoint = keypoint
-        self.dico = 0
-
-        Thread.__init__(self)
-
-    def get_dico(self):
-        return self.dico
-
-    def set_dico(self, value):
-        self.dico = value
-
-    def run(self):
-        self.set_dico(get_kp_distance(self.image_kp_dico, self.keypoint))
-
-
 ############################# function
+
 
 def get_keypoint(kp):
     return np.asarray([key_point.pt for key_point in kp])
@@ -91,11 +73,22 @@ def write_result_into_file(filename, body):
     file.close()
 
 
+def display_images_with_score(img1, img2, score):
+    _, axis = plt.subplots(ncols=2, figsize=(12, 3))
+    axis[0].imshow(img1)
+    axis[1].imshow(img2)
+    # axis[1].set_title("Score: ", score)
+    plt.show()
+
+
+def get_cv2_img(path):
+    return cv2.imread(path)
+
 def evaluate(kp1, kp2):
     counter = 0
     for i in kp1:
         if i in kp2:
-            counter +=1
+            counter += 1
     print("size: ", len(kp1))
     print("size: ", len(kp2))
     print("counter:", counter)
@@ -104,35 +97,37 @@ def evaluate(kp1, kp2):
     return (100 * counter) // len(kp2)
 
 
-def main(img):
+def compare(img_source, img_dest):
     start = time.time()
+
+    # 0. convert image to cv2 image
+    img_source = get_cv2_img(img_source)
+    img_dest = get_cv2_img(img_dest)
+
     # 1. extract kp from img
-    init_kp_array = get_keypoint(detect_keypoint(50, img))
+    img_source_kp = get_keypoint(detect_keypoint(50, img_source))
 
-    # 2. extract kp from each image in repo
-    image_kp_dico = {}
-    for index in range(1):
-        arr = calculate_kp(sea_ocean[index])
-        image_kp_dico[sea_ocean[index]] = arr
+    # 2. extract kp from other random image in repo
+    img_dest_kp = get_keypoint(detect_keypoint(50, img_dest))
 
-    # write_result_into_file("image_kp_array.txt", image_kp_dico[sea_ocean[0]])
+    # write_result_into_file("image_kp_array.txt", img_dest_kp[sea_ocean[0]])
 
-    # 3. init len(img) threads
-    '''t = Distance()
-    t.image_kp_dico = image_kp_dico.get("838s.jpg")
-    t.keypoint = init_kp_array
-    t.start()
-    t.join()'''
-    #for v in t.get_dico():
+    evaluation = evaluate(img_source_kp, img_dest_kp)
 
-    print("Evaluation: ", evaluate(init_kp_array, image_kp_dico.get("838s.jpg")), "%")
-    #print("Evaluation: ", evaluate(image_kp_dico.get("838s.jpg"), image_kp_dico.get("838s.jpg")), "%")
+    print("Evaluation: ", evaluation, "%")
+
+    display_images_with_score(img, img, evaluation)
 
     end = time.time()
     print("\n Execution time:", end - start)
 
 
-main(img)
+compare("../dataset/sea_ocean/838s.jpg", "../dataset/sea_ocean/838s.jpg")
+
+
+
+
+
 # img2 = cv2.drawKeypoints(img, kp, None, flags=0)
 
 # cv2.imshow('corne', img2)
