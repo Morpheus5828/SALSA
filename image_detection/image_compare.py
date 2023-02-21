@@ -110,8 +110,7 @@ def compare(img_source, img_dest):
     # 2. extract kp from other random image in repo
     img_dest_kp = get_keypoint(detect_keypoint(50, img_dest))
 
-    # write_result_into_file("image_kp_array.txt", img_dest_kp[sea_ocean[0]])
-
+    # 3. evaluation
     evaluation = evaluate(img_source_kp, img_dest_kp)
 
     print("Evaluation: ", evaluation, "%")
