@@ -31,7 +31,7 @@ class Vector:
     def get_normal(self):
         return self.normal
 
-    def __str__(self):
+    def display(self):
         return "source: ", self.source, " to: ", self.destination, " size: ", self.normal
 
 class Distance(Thread):
@@ -49,7 +49,7 @@ class Distance(Thread):
         self.dico = value
 
     def run(self):
-        self.set_dico(compare_distance(self.image_kp_dico, self.keypoint))
+        self.set_dico(get_kp_distance(self.image_kp_dico, self.keypoint))
 
 
 ############################# function
@@ -72,7 +72,7 @@ def calculate_kp(image):
     return get_keypoint(kp)
 
 
-def compare_distance(dico_a, dico_b):
+def get_kp_distance(dico_a, dico_b):
     distance_list = []
     for source in dico_a:
         for destination in dico_b:
@@ -91,6 +91,19 @@ def write_result_into_file(filename, body):
     file.close()
 
 
+def evaluate(kp1, kp2):
+    counter = 0
+    for i in kp1:
+        if i in kp2:
+            counter +=1
+    print("size: ", len(kp1))
+    print("size: ", len(kp2))
+    print("counter:", counter)
+    '''common = np.intersect1d(kp1, kp2).size
+    print("common: ", common)'''
+    return (100 * counter) // len(kp2)
+
+
 def main(img):
     start = time.time()
     # 1. extract kp from img
@@ -105,14 +118,15 @@ def main(img):
     # write_result_into_file("image_kp_array.txt", image_kp_dico[sea_ocean[0]])
 
     # 3. init len(img) threads
-    t = Distance()
+    '''t = Distance()
     t.image_kp_dico = image_kp_dico.get("838s.jpg")
     t.keypoint = init_kp_array
     t.start()
-    t.join()
-    for v in t.get_dico():
-        print(v.__str__())
+    t.join()'''
+    #for v in t.get_dico():
 
+    print("Evaluation: ", evaluate(init_kp_array, image_kp_dico.get("838s.jpg")), "%")
+    #print("Evaluation: ", evaluate(image_kp_dico.get("838s.jpg"), image_kp_dico.get("838s.jpg")), "%")
 
     end = time.time()
     print("\n Execution time:", end - start)
