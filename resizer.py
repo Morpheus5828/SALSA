@@ -10,7 +10,7 @@ def resize_images(folder_path):
     # Trouver la plus petite image
     for file_name in os.listdir(folder_path):
         file_path = os.path.join(folder_path, file_name)
-        if file_name.endswith(".jpeg") or file_name.endswith(".png"):  # Seulement pour les fichiers image
+        if file_name.endswith(".jpeg") or file_name.endswith(".png") or file_name.endswith(".jpg"):  # Seulement pour les fichiers image
             try:
                 with Image.open(file_path) as image:
                     size = image.width * image.height
@@ -27,7 +27,7 @@ def resize_images(folder_path):
         smallest_image = Image.open(smallest_image_path)
         for file_name in os.listdir(folder_path):
             file_path = os.path.join(folder_path, file_name)
-            if file_name.endswith(".jpeg") or file_name.endswith(".png"):
+            if file_name.endswith(".jpeg") or file_name.endswith(".png") or file_name.endswith(".jpg"):
                 try:
                     with Image.open(file_path) as image:
                         resized_image = image.resize((smallest_image.width, smallest_image.height))
@@ -39,4 +39,4 @@ def resize_images(folder_path):
         print("Aucune image trouvée.")
 
 
-resize_images("dataset/sea_ocean")
+resize_images("dataset/other")
