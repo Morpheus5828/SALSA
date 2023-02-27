@@ -122,13 +122,9 @@ def compare(img_source, img_dest):
 
     #print("Evaluation: ", evaluation, "%")
 
-    display_images_with_score(img_source, img_dest, evaluation)
+    #display_images_with_score(img_source, img_dest, evaluation)
 
     return evaluation
 
-compare("../dataset/sea_ocean/838s.jpg", "../dataset/sea_ocean/838s.jpg")
 
-'''cv2.drawKeypoints(img,kp, None, flags=0)
-
-cv2.imshow('corne', img2)'''
-# cv2.waitKey(0)
+#compare("../dataset/sea_ocean/zzzz.jpeg", "../dataset/sea_ocean/838s.jpg")

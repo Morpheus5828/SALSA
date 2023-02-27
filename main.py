@@ -12,6 +12,8 @@ def main(source):
     score = {}
     for image in sea_ocean:
         destination = "dataset/sea_ocean/" + str(image)
+        #print(source)
+        #print(destination)
         value = ic.compare(source, destination)
         if value is not None: score[value] = image
 
@@ -26,4 +28,4 @@ def main(source):
     print("\n Execution time:", end - start)
 
 
-main("dataset/sea_ocean/image_web.jpg")
+main("dataset/sea_ocean/zzzz.jpeg")
