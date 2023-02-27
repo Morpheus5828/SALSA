@@ -1,6 +1,7 @@
 import os
 from PIL import Image
 
+
 def resize_images(folder_path):
     resize_folder_path = os.path.join(folder_path, "average_resize")
 
@@ -36,5 +37,4 @@ def resize_images(folder_path):
                 pass
 
 
-resize_images("../dataset/other")
-resize_images("../dataset/sea_ocean")
+
