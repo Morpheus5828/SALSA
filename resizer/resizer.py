@@ -39,5 +39,4 @@ def resize_images(folder_path):
         print("Aucune image trouvée.")
 
 
-resize_images("../dataset/other")
-resize_images("../dataset/sea_ocean")
+
