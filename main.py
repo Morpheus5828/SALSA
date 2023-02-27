@@ -2,7 +2,7 @@ import os
 import time
 
 from image_detection import image_compare as ic
-#from image_detection import create_evaluate_file as cev
+#from image_detection import create_evaluate_file as cev-
 
 sea_ocean = os.listdir("dataset/sea_ocean")
 
