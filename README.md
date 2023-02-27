@@ -5,7 +5,7 @@
 ---
 
 Marius THORRE <br>
-Chloé BUTTIGIEF <br>
+Chloé BUTTIGIEG <br>
 Warren AHAMADA
 <h2><i>Does image has an Ocean or a Sea ?</i></h2>
 <p>Try to give an answer using machine learning, an Artifical Intelligence branch.
