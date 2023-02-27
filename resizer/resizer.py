@@ -2,7 +2,7 @@ import os
 from PIL import Image
 
 def resize_images(folder_path):
-    resize_folder_path = os.path.join(folder_path, "resize")
+    resize_folder_path = os.path.join(folder_path, "smallest_resize")
 
     smallest_size = float('inf')
     smallest_image_path = None
@@ -39,4 +39,5 @@ def resize_images(folder_path):
         print("Aucune image trouvée.")
 
 
-resize_images("dataset/other")
+resize_images("../dataset/other")
+resize_images("../dataset/sea_ocean")
