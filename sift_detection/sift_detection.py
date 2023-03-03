@@ -2,12 +2,15 @@ import sys
 
 import numpy as np
 import cv2
-from average_resizer import resize_images as ri
+from resizer import resize_images as ri
 from matplotlib import pyplot as plt
 
 #TODO resize picture before run algo
-img1 = cv2.imread("za7huw.jpeg")
-img2 = cv2.imread("z3tt.png")
+
+
+
+img1 = cv2.imread("smallest_resize/za7huw.jpeg")
+img2 = cv2.imread("smallest_resize/z3tt.png")
 
 
 sift = cv2.SIFT_create()
@@ -22,7 +25,7 @@ matches = flann.knnMatch(desc1, desc2, k=2)
 
 good_point = []
 for m, n in matches:
-    if m.distance < 0.7*n.distance:
+    if m.distance < 0.8*n.distance:
         good_point.append(m)
 
 print("taille de kp1: ", len(kp1))

@@ -127,4 +127,4 @@ def compare(img_source, img_dest):
     return evaluation
 
 
-#compare("../dataset/sea_ocean/zzzz.jpeg", "../dataset/sea_ocean/838s.jpg")
+compare("../dataset/sea_ocean/zzzz.jpeg", "../dataset/sea_ocean/838s.jpg")

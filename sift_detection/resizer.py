@@ -36,7 +36,7 @@ def resize_images(folder_path):
                 except OSError:
                     pass
     else:
-        print("Aucune image trouvée.")
+        print("Not image found")
 
 
 
