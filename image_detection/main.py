@@ -9,23 +9,28 @@ other = os.listdir("../dataset/other")
 
 def main():
     start = time.time()
-    score = {}
     for source in sea_ocean:
+        score = {}
         file_name = source
         source = "../dataset/sea_ocean/" + str(source)
         for image in sea_ocean:
             destination = "../dataset/sea_ocean/" + str(image)
             value = ic.compare(source, destination)
-            if value is not None: score[value] = image
+            if value is not None: score[value] = image + " from sea_ocean"
         for image in other:
             destination = "../dataset/other/" + str(image)
             value = ic.compare(source, destination)
-            if value is not None: score[value] = image
-        score = dict(sorted(score.items()))
+            if value is not None: score[value] = image + " from other"
+        score = dict(sorted(score.items(), reverse=True))
         file = open("../evaluation/keypoint_compare/" + file_name + ".txt", "a")
+
+        c = 0
         for i in score.keys():
+            if c == 30:
+                break
             line = str(i) + "% for " + str(score.get(i))
-            file.write("\n" + line)
+            file.write(line + "\n")
+            c += 1
         file.close()
 
     end = time.time()
@@ -33,4 +38,3 @@ def main():
 
 
 main()
-

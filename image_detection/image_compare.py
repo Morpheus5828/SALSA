@@ -87,11 +87,12 @@ def intersection(a, b):
 
 def evaluate(kp1, kp2):
     try:
-        '''print(len(kp1))
-        print(len(kp2))
-        print("size: ", (100 * len(common)) // len(kp2))'''
+
+        omega = np.concatenate((kp1, kp2))
+        omega = np.unique(omega, axis=0)
         common = intersection(kp1, kp2)
-        return (100 * len(common)) / len(kp2)
+
+        return (100 * len(common)) // len(omega)
     except ZeroDivisionError:
         print("Error: zero division")
 
@@ -127,4 +128,4 @@ def compare(img_source, img_dest):
     return evaluation
 
 
-compare("../dataset/sea_ocean/zzzz.jpeg", "../dataset/sea_ocean/838s.jpg")
+compare("../dataset/sea_ocean/838s_bis.jpg", "../dataset/sea_ocean/838s_bis.jpg")
