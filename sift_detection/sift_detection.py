@@ -4,11 +4,20 @@ import time
 
 import numpy as np
 import cv2
-from resizer import resize_images as ri
+
 from matplotlib import pyplot as plt
 
 sea_ocean = os.listdir("../dataset/sea_ocean")
 other = os.listdir("../dataset/other")
+
+
+def extractSIFTInformations(img1):
+    img1 = cv2.imread(img1)
+    img1 = cv2.cvtColor(img1, cv2.COLOR_BGR2GRAY)
+    sift = cv2.SIFT_create()
+    keypoints_1, descriptors_1 = sift.detectAndCompute(img1, None)
+    return keypoints_1, descriptors_1
+
 
 def compare(img1, img2):
     img1 = cv2.imread(img1)
@@ -42,24 +51,24 @@ def compare(img1, img2):
     return (100*len(matches)) // len(omega)
 
 
-#compare("../dataset/sea_ocean/838s.jpg", "../dataset/sea_ocean/838s.jpg")
+#compare("../dataset/sea_ocean_to_all/838s.jpg", "../dataset/sea_ocean_to_all/838s.jpg")
 
 def main():
     start = time.time()
-    for source in sea_ocean:
+    for source in other:
         score = {}
         file_name = source
-        source = "../dataset/sea_ocean/" + str(source)
+        source = "../dataset/other/" + str(source)
         for image in sea_ocean:
             destination = "../dataset/sea_ocean/" + str(image)
             value = compare(source, destination)
-            if value is not None: score[value] = image + " from sea_ocean"
+            if value is not None: score[value] = image + " from sea_ocean_to_all"
         for image in other:
             destination = "../dataset/other/" + str(image)
             value = compare(source, destination)
             if value is not None: score[value] = image + " from other"
         score = dict(sorted(score.items(), reverse=True))
-        file = open("../evaluation/sift_compare/" + file_name + ".txt", "a")
+        file = open("../evaluation/sift_compare/other_to_all/" + file_name + ".txt", "a")
 
         c = 0
         for i in score.keys():

@@ -41,7 +41,7 @@ def get_distance(x1, y1, x2, y2):
 
 
 def calculate_kp(image):
-    image = cv2.imread("../dataset/sea_ocean/" + image)
+    image = cv2.imread("../dataset/sea_ocean_to_all/" + image)
     kp = detect_keypoint(50, image)
     return get_keypoint(kp)
 
@@ -105,7 +105,7 @@ def evaluate(kp1, kp2):
     cv2.imshow(img)'''
 
 
-#display_kp("../dataset/sea_ocean/838s.jpg")
+#display_kp("../dataset/sea_ocean_to_all/838s.jpg")
 
 def compare(img_source, img_dest):
     # 0. convert image to cv2 image
@@ -128,4 +128,4 @@ def compare(img_source, img_dest):
     return evaluation
 
 
-compare("../dataset/sea_ocean/838s_bis.jpg", "../dataset/sea_ocean/838s_bis.jpg")
+compare("../dataset/sea_ocean_to_all/838s_bis.jpg", "../dataset/sea_ocean_to_all/838s_bis.jpg")
