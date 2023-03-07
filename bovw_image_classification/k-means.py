@@ -1,6 +1,8 @@
 import math
 import os
 
+import cv2
+import joblib
 import numpy as np
 from scipy.cluster.vq import kmeans, vq
 from sklearn.preprocessing import StandardScaler
@@ -12,45 +14,71 @@ from sift_detection.sift_detection import extract_SIFT_descriptors
 
 sea_ocean = os.listdir("../dataset/sea_ocean")
 
-# extract SIFT descriptor
-
-des_list = []
-
+image_training = []
 for image in sea_ocean:
-    descriptor, img = extract_SIFT_descriptors("../dataset/sea_ocean/" + image)
-    des_list.append(("../dataset/sea_ocean/" + image, descriptor))
+    image_training.append(np.array(cv2.imread("../dataset/sea_ocean/" + image)))
 
-# stock all descriptors in numpy array
+# add grayscale
+image_gray = []
+for image in image_training:
+    if len(image.shape) > 2:
+        image_gray.append(cv2.cvtColor(image, cv2.COLOR_RGB2GRAY))
+    else:
+        image_gray.append(image)
 
-descriptors = des_list[0][1]
-for image, desc in des_list[1:]:
-    descriptors = np.vstack((descriptors, desc))
+# extract features
+extractor = cv2.SIFT_create()
 
-# k-means part
-descriptors = descriptors.astype(float)  # convert all descriptors to float type
+keypoint = []
+descriptor = []
+
+for i in image_gray:
+    kp, desc = extractor.detectAndCompute(i, None)
+    keypoint.append(kp)
+    descriptor.append(desc)
+
+to_drop = []
+for i, img_desc in enumerate(descriptor):
+    if img_desc is not None:
+        to_drop.append(i)
+
+for i in sorted(to_drop, reverse=True):
+    del descriptor[i], keypoint[i]
+
+
+descriptor = np.stack(descriptor)  # add all vector in a single array
 
 k = int(math.log(len(sea_ocean)))
-voc, variance = kmeans(descriptors, k, 1)
+iters = 1
+codebook, variance = kmeans(descriptor, 200, iters)
 
-# Calculate the histogram of features and represent them as vector
+joblib.dump((k,codebook), "bovw-codebook.pkl", compress=3)
 
-im_features = np.zeros((len(sea_ocean), k), "float32")
-for i in range(len(sea_ocean)):
-    words, distance = vq(des_list[i][1], voc)
-    for w in words:
-        im_features[i][w] += 1
+# vector
 
-# k-means part
+visual_word = []
+for img in descriptor:
+    img_visual_words, distance = vq(img, codebook)
+    visual_word.append(img_visual_words)
 
-kmeans_obj = KMeans(n_clusters=int(math.log(len(sea_ocean))))
-label = kmeans_obj.fit_predict(descriptors)  # do prediction on learning dataset
-u_labels = np.unique(label)
 
-# plotting the results:
 
-for i in u_labels:
-    print(descriptors)
-    print(descriptors[label == i, 0], descriptors[label == i, 1])
-    plt.scatter(descriptors[i, 0], descriptors[i, 1])
-plt.legend()
-#plt.show()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
