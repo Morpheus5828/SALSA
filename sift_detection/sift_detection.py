@@ -7,16 +7,17 @@ import cv2
 
 from matplotlib import pyplot as plt
 
+#TODO decode comment if extract_SIFT_descriptors not using
 sea_ocean = os.listdir("../dataset/sea_ocean")
 other = os.listdir("../dataset/other")
 
 
-def extractSIFTInformations(img1):
+def extract_SIFT_descriptors(img1):
     img1 = cv2.imread(img1)
     img1 = cv2.cvtColor(img1, cv2.COLOR_BGR2GRAY)
     sift = cv2.SIFT_create()
     keypoints_1, descriptors_1 = sift.detectAndCompute(img1, None)
-    return keypoints_1, descriptors_1
+    return descriptors_1, img1
 
 
 def compare(img1, img2):
@@ -83,6 +84,6 @@ def main():
     print("\n Execution time:", end - start)
 
 
-main()
+#main()
 #img3 = cv2.drawMatches(img1, keypoints_1, img2, keypoints_2, matches[:50], img2, flags=2)
 #plt.imshow(img3),plt.show()
