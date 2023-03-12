@@ -20,28 +20,28 @@ from sklearn.ensemble import RandomForestClassifier
 
 from sklearn.preprocessing import StandardScaler
 
-'''# Open images
-all_images = management.open_images_from_dir_of_dir("Data")
-images = management.open_images_from_dir("Data/Mer")
+# Open images
+images = management.open_images_from_dir_of_dir("Data")
+#images = management.open_images_from_dir("Data/Mer")
 
 
-# Resize images
+'''# Resize images
 average_height = resize.get_average_height(all_images)
-images = resize.resize_to_same_height(images, average_height)
+images = resize.resize_to_same_height(images, average_height)'''
 
 
 # Save features
 features, descriptors = extract.compute(images, extract.get_sift_descriptor)
 
-extract.save_features("resized_h-sift-sea-features.txt", "save/features/sift/sea/features", features)
-extract.save_descriptors("resized_h-sift-sea-descriptors.txt", "save/features/sift/sea/descriptors", descriptors)'''
+extract.save_features("sift-all-features.txt", "save/features/sift/all/features", features)
+extract.save_descriptors("sift-all-descriptors.txt", "save/features/sift/all/descriptors", descriptors)
 
 '''# Load features
-features = extract.read_features("save/features/sift/sea/features/resized_h-sift-sea-features.txt", float)
-descriptors = extract.read_descriptors("save/features/sift/sea/descriptors/resized_h-sift-sea-descriptors.txt", float)
-print(int(np.log(len(descriptors))))
+features = extract.read_features("save/features/sift/all/features/resized_h-sift-sea-features.txt", float)
+descriptors = extract.read_descriptors("save/features/sift/descriptors/resized_h-sift-sea-descriptors.txt", float)
+print(int(np.log(len(descriptors))))'''
 
-# Save clustering algorithm
+'''# Save clustering algorithm
 clustering_model = clustering.get_gaussian_mixture_model(features, int(np.log(len(descriptors))))
 clustering.save_model(clustering_model, "resized_h-gm-sift-sea-5.joblib", "save/clustering/gaussian-mixture/sift")'''
 
