@@ -287,3 +287,94 @@ Puis en normalisant :
 - **Bagging** *(estimator=Perceptron_linéaire)***:** 0.7045783132530121
 - **Bagging** *(estimator=Perceptron_multicouche(solver=adam))***:** 0.7303614457831324
 - **Random Forest:** 0.697831325301205
+
+On change maintenant la taille des clusters. On a alors les paramètres suivants :
+- **Extraction des motifs:** Mer.
+- **Taille des images:** Redimensionnées selon la hauteur.
+- **Descripteur:** SIFT
+- **Clustering:** Gaussian Mixture (*clusters=12 log(features))*
+
+Sans normaliser :
+- **Gaussian NB:** 0.7257831325301203
+- **Linear SVC:** 0.5718072289156626
+- **Perceptron linéaire :** 0.636867469879518
+- **Perceptron Multicouche** *(solver=adam)***:** 0.6402409638554215
+- **Régression Logistique:** 0.723614457831325
+- **K Neighbors:** 0.6669879518072291
+- **Bagging** *(estimator=Arbre)***:** 0.6857831325301206
+- **Bagging** *(estimator=Perceptron_linéaire)***:** 0.6580722891566265
+- **Bagging** *(estimator=Perceptron_multicouche(solver=adam))***:** 0.6657831325301204
+- **Random Forest:** 0.7077108433734938
+
+Puis en normalisant :
+- **Gaussian NB:** 0.7086746987951805
+- **Linear SVC:** 0.732289156626506
+- **Perceptron linéaire :** 0.660722891566265
+- **Perceptron Multicouche** *(solver=adam)***:** 0.725301204819277
+- **Régression Logistique:** 0.7260240963855421
+- **K Neighbors:** 0.6886746987951808
+- **Bagging** *(estimator=Arbre)***:** 0.6812048192771084
+- **Bagging** *(estimator=Perceptron_linéaire)***:** 0.7125301204819275
+- **Bagging** *(estimator=Perceptron_multicouche(solver=adam))***:** 0.7113253012048194
+- **Random Forest:** 0.7093975903614458
+
+### Redimension : largeur et hauteur
+On a les paramètres suivants :
+- **Extraction des motifs:** Mer.
+- **Taille des images:** Redimensionnées selon la largeur et la hauteur.
+- **Descripteur:** SIFT
+- **Clustering:** Gaussian Mixture (*clusters=5 log(descriptors))*
+
+Sans normaliser :
+- **Gaussian NB:** 0.7125301204819278
+- **Linear SVC:** 0.5865060240963856
+- **Perceptron linéaire :** 0.6190361445783131
+- **Perceptron Multicouche** *(solver=adam)***:** 0.647710843373494
+- **Régression Logistique:** 0.72144578313253
+- **K Neighbors:** 0.6730120481927709
+- **Bagging** *(estimator=Arbre)***:** 0.6751807228915664
+- **Bagging** *(estimator=Perceptron_linéaire)***:** 0.6662650602409638
+- **Bagging** *(estimator=Perceptron_multicouche(solver=adam))***:** 0.6816867469879518
+- **Random Forest:** 0.7108433734939759
+
+Puis en normalisant :
+- **Gaussian NB:** 0.7072289156626508
+- **Linear SVC:** 0.7202409638554214
+- **Perceptron linéaire :** 0.6332530120481927
+- **Perceptron Multicouche** *(solver=adam)***:** 0.7269879518072289
+- **Régression Logistique:** 0.7236144578313254
+- **K Neighbors:** 0.656144578313253
+- **Bagging** *(estimator=Arbre)***:** 0.6824096385542167
+- **Bagging** *(estimator=Perceptron_linéaire)***:** 0.709156626506024
+- **Bagging** *(estimator=Perceptron_multicouche(solver=adam))***:** 0.7306024096385542
+- **Random Forest:** 0.6990361445783131
+
+On change maintenant la taille des clusters. On a alors les paramètres suivants :
+- **Extraction des motifs:** Mer.
+- **Taille des images:** Redimensionnées selon la largeur et la hauteur.
+- **Descripteur:** SIFT
+- **Clustering:** Gaussian Mixture (*clusters=12 log(features))*
+
+Sans normaliser :
+- **Gaussian NB:** 0.7212048192771082
+- **Linear SVC:** 0.5672289156626507
+- **Perceptron linéaire :** 0.5997590361445785
+- **Perceptron Multicouche** *(solver=adam)***:** 0.6419277108433734
+- **Régression Logistique:** 0.7265060240963852
+- **K Neighbors:** 0.6872289156626507
+- **Bagging** *(estimator=Arbre)***:** 0.6934939759036144
+- **Bagging** *(estimator=Perceptron_linéaire)***:** 0.6636144578313256
+- **Bagging** *(estimator=Perceptron_multicouche(solver=adam))***:** 0.6742168674698796
+- **Random Forest:** 0.7253012048192768
+
+Puis en normalisant :
+- **Gaussian NB:** 0.7187951807228914
+- **Linear SVC:** 0.7325301204819277
+- **Perceptron linéaire :** 0.6431325301204819
+- **Perceptron Multicouche** *(solver=adam)***:** 0.7127710843373495
+- **Régression Logistique:** 0.7325301204819277
+- **K Neighbors:** 0.6999999999999998
+- **Bagging** *(estimator=Arbre)***:** 0.6848192771084336
+- **Bagging** *(estimator=Perceptron_linéaire)***:** 0.6954216867469879
+- **Bagging** *(estimator=Perceptron_multicouche(solver=adam))***:** 0.7031325301204818
+- **Random Forest:** 0.7159036144578313

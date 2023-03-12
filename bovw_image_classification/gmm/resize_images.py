@@ -29,3 +29,11 @@ def resize_to_same_height(images, height):
         dimension = (int(image.shape[1] * height / image.shape[0]), height)
         resized_images.append(cv.resize(image, dimension, interpolation=cv.INTER_AREA))
     return resized_images
+
+
+def resize_to(images, height, width):
+    resized_images = []
+    for image in images:
+        dimension = (int(image.shape[1] * height / image.shape[0]), int(image.shape[0] * width / image.shape[1]))
+        resized_images.append(cv.resize(image, dimension, interpolation=cv.INTER_AREA))
+    return resized_images
