@@ -1,0 +1,35 @@
+SCORE:
+
+SIFT
+    cluster_nb = dataset size
+
+        Gaussian img resize : 0.7190361445783131
+        Gaussian img not resize : 0.583132530120482
+        K-NN img img resize: 0.6959036144578314
+        K-NN img img not resize: 0.6469879518072291
+        Perceptron img resize: 0.6674698795180721
+        Perceptron img not resize: 0.6616867469879518
+        Bagging img resize: 0.742168674698795
+        Bagging img not resize: 0.5992771084337353
+
+    cluster_nb = log dataset size
+
+        Gaussian img resize : 0.6918072289156625
+        Gaussian img not resize : 0.561686746987952
+        K-NN img img resize: 0.6848192771084338
+        K-NN img img not resize: 0.6520481927710842
+        Perceptron img resize: 0.6026506024096389
+        Perceptron img not resize: 0.623855421686747
+        Bagging img resize: 0.7204819277108433
+        Bagging img not resize: 0.6057831325301205
+
+        n_feature 150
+
+        Gaussian img resize : 0.6344578313253012
+        Gaussian img not resize : 0.6318072289156627
+        K-NN img img resize: 0.5836144578313255
+        K-NN img img not resize: 0.592289156626506
+        Perceptron img resize: 0.563855421686747
+        Perceptron img not resize: 0.5484337349397588
+        Bagging img resize: 0.6204819277108435
+        Bagging img not resize: 0.6173493975903614
