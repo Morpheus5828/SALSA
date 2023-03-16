@@ -10,6 +10,9 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.metrics import accuracy_score
 from sift_detection.sift_detection import extract_SIFT_descriptors
 
+sea_ocean = os.listdir("../dataset/sea_ocean/without_changes")
+other = os.listdir("../dataset/other/without_changes")
+
 
 def prepare_data(sea_ocean, other, repo):
     class ImageTraining:
@@ -30,7 +33,7 @@ def prepare_data(sea_ocean, other, repo):
     for img in sea_ocean:
         dataset.append(
             ImageTraining(
-                np.array(cv2.imread("../dataset/sea_ocean/" + repo + "/" + img)),
+                np.array(cv2.imread("../dataset/sea_ocean/" + repo + "/" + img, cv2.IMREAD_GRAYSCALE)),
                 "../dataset/sea_ocean/" + repo + "/" + img,
                 index_img,
                 1
@@ -41,7 +44,7 @@ def prepare_data(sea_ocean, other, repo):
     for img in other:
         dataset.append(
             ImageTraining(
-                np.array(cv2.imread("../dataset/other/" + repo + "/" + img)),
+                np.array(cv2.imread("../dataset/other/" + repo + "/" + img, cv2.IMREAD_GRAYSCALE)),
                 "../dataset/other/" + repo + "/" + img,
                 index_img,
                 -1
@@ -66,14 +69,18 @@ def extract_feature(dataset, all_label):
             black_white_img.append(img.array)
 
     # Extract feature (keypoint and descriptor)
-    extractor = cv2.SIFT_create()
+    extractor = cv2.xfeatures2D.SURF_create()
     keypoints = []
     descriptors = []
 
     for img in black_white_img:
         img_kp, img_desc = extractor.detectAndCompute(img, None)  # no mask to add
         keypoints.append(img_kp)
-        descriptors.append(img_desc)
+        for i in img_desc:
+            for j in i:
+                print(type(j))
+        descriptors.append(float_desc)
+
 
     drop_img = []
     for index, img_desc in enumerate(descriptors):
@@ -90,13 +97,24 @@ def extract_feature(dataset, all_label):
             all_desc.append(desc)
 
     all_desc = np.stack(all_desc)  # shape: (873842, 128)
+
     return all_desc, descriptors, all_label
+
+def extract_fuature_FREAK(dataset, all_label):
+    color_img = []
+    for img in dataset:
+        color_img.append()
+
+
+
 
 
 def create_codebook(all_desc):
+    print(all_desc)
     # 2°) Set up codebook with K_means algo for the sample
     cluster_nb = 5
     iters = 1
+
     codebook, variance = kmeans(all_desc, cluster_nb, iters)
     return codebook, cluster_nb
 
@@ -123,3 +141,9 @@ def calculate_frequency(visual_words, cluster_nb):
     frequency_vectors = np.stack(frequency_vectors)
     return frequency_vectors
 
+
+all_label, training_img = prepare_data(sea_ocean, other, "without_changes")
+all_desc, descriptors, all_label = extract_feature(training_img, all_label)
+codebook, cluster_nb = create_codebook(all_desc)
+visual_words = generate_visual_words(descriptors, codebook)
+frequency_vectors = calculate_frequency(visual_words, cluster_nb)

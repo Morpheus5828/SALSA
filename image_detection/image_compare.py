@@ -12,7 +12,7 @@ from matplotlib import pyplot as plt
 ############################# class
 
 class Vector:
-    def __int__(self, source, destination, normal):
+    def __init__(self, source, destination, normal):
         self.source = source
         self.destination = destination
         self.normal = normal
@@ -24,7 +24,6 @@ class Vector:
         return "source: ", self.source, " to: ", self.destination, " size: ", self.normal
 
 ############################# function
-
 
 def get_keypoint(kp):
     return np.asarray([key_point.pt for key_point in kp])
