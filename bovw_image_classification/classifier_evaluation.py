@@ -1,13 +1,12 @@
 import threading
 
-from bovw_image_classification import bovw_method
 from sklearn.linear_model import Perceptron
 from sklearn.ensemble import BaggingClassifier
 from sklearn.svm import SVC
-from sklearn.ensemble import AdaBoostClassifier
 from bovw_image_classification.bovw_method import *
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import RandomForestClassifier
+import ORB_extraction
 
 sea_ocean = os.listdir("../dataset/sea_ocean/without_changes")
 other = os.listdir("../dataset/other/without_changes")
@@ -85,7 +84,7 @@ def random_forest_class_average_resize(frequency_vectors, all_label):
     clf = RandomForestClassifier(max_depth=2, random_state=0)
     y_pred = clf.fit(X_train, y_train).predict(X_test)
     score = accuracy_score(y_pred, y_test)
-    print("average_resize bg", score)
+    print("average_resize rfc", score)
 
 
 def random_forest_class_img_not_resize(frequency_vectors, all_label):
@@ -93,7 +92,7 @@ def random_forest_class_img_not_resize(frequency_vectors, all_label):
     clf = RandomForestClassifier(max_depth=2, random_state=0)
     y_pred = clf.fit(X_train, y_train).predict(X_test)
     score = accuracy_score(y_pred, y_test)
-    print("without_changes", score)
+    print("without_changes rfc", score)
 
 
 def ada_boost_img_not_resize(frequency_vectors, all_label):
@@ -101,7 +100,7 @@ def ada_boost_img_not_resize(frequency_vectors, all_label):
     clf = RandomForestClassifier(max_depth=2, random_state=0)
     y_pred = clf.fit(X_train, y_train).predict(X_test)
     score = accuracy_score(y_pred, y_test)
-    print("without_changes", score)
+    print("without_changes ada", score)
 
 
 def ada_boost_average_resize(frequency_vectors, all_label):
@@ -109,43 +108,48 @@ def ada_boost_average_resize(frequency_vectors, all_label):
     clf = RandomForestClassifier(max_depth=2, random_state=0)
     y_pred = clf.fit(X_train, y_train).predict(X_test)
     score = accuracy_score(y_pred, y_test)
-    print("average_resize", score)
+    print("average_resize ada", score)
 
 
 def evaluate():
     for i in range(50):
-        all_label, training_img = prepare_data(sea_ocean, other, "without_changes")
-        all_desc, descriptors, all_label = extract_feature(training_img, all_label)
-        codebook, cluster_nb = create_codebook(all_desc)
-        visual_words = generate_visual_words(descriptors, codebook)
-        frequency_vectors = calculate_frequency(visual_words, cluster_nb)
+        descriptors, labels = ORB_extraction.extract_features(sea_ocean, other, "without_changes")
+        codebook, cluster_nb = ORB_extraction.K_means(descriptors)
+        frequency_vectors = ORB_extraction.calculate_frequencies(descriptors, codebook, cluster_nb)
 
-        t = threading.Thread(target=gaussian_img_not_resize(frequency_vectors, all_label))
-        t1 = threading.Thread(target=k_nn_img_not_resize(frequency_vectors, all_label))
-        t2 = threading.Thread(target=perceptron_img_not_resize(frequency_vectors, all_label))
-        t3 = threading.Thread(target=bagging_img_not_resize(frequency_vectors, all_label))
+        t = threading.Thread(target=gaussian_img_not_resize(frequency_vectors, labels))
+        t1 = threading.Thread(target=k_nn_img_not_resize(frequency_vectors, labels))
+        t2 = threading.Thread(target=perceptron_img_not_resize(frequency_vectors, labels))
+        t3 = threading.Thread(target=bagging_img_not_resize(frequency_vectors, labels))
+        t8 = threading.Thread(target=random_forest_class_img_not_resize(frequency_vectors, labels))
+        t10 = threading.Thread(target=ada_boost_img_not_resize(frequency_vectors, labels))
 
         t.start()
         t1.start()
         t2.start()
         t3.start()
+        t8.start()
+        t10.start()
 
     for i in range(50):
-        all_label, training_img = prepare_data(sea_ocean_average, other_average, "average_resize")
-        all_desc, descriptors, all_label = extract_feature(training_img, all_label)
-        codebook, cluster_nb = create_codebook(all_desc)
-        visual_words = generate_visual_words(descriptors, codebook)
-        frequency_vectors = calculate_frequency(visual_words, cluster_nb)
+        descriptors, labels = ORB_extraction.extract_features(sea_ocean, other, "average_resize")
+        codebook, cluster_nb = ORB_extraction.K_means(descriptors)
+        frequency_vectors = ORB_extraction.calculate_frequencies(descriptors, codebook, cluster_nb)
 
-        t4 = threading.Thread(target=gaussian_with_average_resize(frequency_vectors, all_label))
-        t5 = threading.Thread(target=k_nn_with_average_resize(frequency_vectors, all_label))
-        t6 = threading.Thread(target=perceptron_average_resize(frequency_vectors, all_label))
-        t7 = threading.Thread(target=bagging_img_average_resize(frequency_vectors, all_label))
+        t4 = threading.Thread(target=gaussian_with_average_resize(frequency_vectors, labels))
+        t5 = threading.Thread(target=k_nn_with_average_resize(frequency_vectors, labels))
+        t6 = threading.Thread(target=perceptron_average_resize(frequency_vectors, labels))
+        t7 = threading.Thread(target=bagging_img_average_resize(frequency_vectors, labels))
+        t9 = threading.Thread(target=random_forest_class_average_resize(frequency_vectors, labels))
+        t11 = threading.Thread(target=ada_boost_average_resize(frequency_vectors, labels))
 
         t4.start()
         t5.start()
         t6.start()
+        t9.start()
         t7.start()
+        t11.start()
+
 
 
 evaluate()
