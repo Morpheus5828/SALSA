@@ -12,8 +12,8 @@ from sift_detection.sift_detection import extract_SIFT_descriptors
 
 import os
 
-sea_ocean = os.listdir("../dataset/sea_ocean/without_changes")
-other = os.listdir("../dataset/other/without_changes")
+sea_ocean = os.listdir("../../dataset/sea_ocean/without_changes")
+other = os.listdir("../../dataset/other/without_changes")
 
 
 def extract_features(sea_ocean, other, repo):
@@ -42,7 +42,7 @@ def extract_features(sea_ocean, other, repo):
 
         kp, desc = SIFT.detectAndCompute(gray_img, None)
         img_1 = cv2.drawKeypoints(gray_img, kp, normal_img, flags=cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
-        #cv2.imwrite("ORB_kp_drawing/" + str(index) + ".jpg", img_1)
+        #cv2.imwrite("SIFT_kp_drawing/" + str(index) + ".jpg", img_1)
 
         keypoints.append(kp)
         descriptors.append(desc)
