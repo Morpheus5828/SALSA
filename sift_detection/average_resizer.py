@@ -36,6 +36,6 @@ def resize_images(folder_path):
             except OSError:
                 pass
 
-resize_images("../dataset/sea_ocean")
+resize_images("../dataset/other/without_changes")
 
 

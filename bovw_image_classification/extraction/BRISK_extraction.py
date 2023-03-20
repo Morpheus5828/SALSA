@@ -68,7 +68,7 @@ def K_means(descriptors):
             all_descriptors.append(desc.astype('float'))
 
     all_descriptors = np.stack(all_descriptors)
-    cluster_nb = int(math.log(414))
+    cluster_nb = 414
     iters = 1
 
     codebook, variance = kmeans(all_descriptors, cluster_nb, iters)

@@ -7,7 +7,7 @@ from sklearn.svm import SVC
 from bovw_image_classification.bovw_method import *
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import RandomForestClassifier
-from bovw_image_classification.extraction import BRISK_extraction
+from bovw_image_classification.extraction import BRISK_extraction, SIFT_extraction, SURF_extraction
 
 sea_ocean = os.listdir("../dataset/sea_ocean/without_changes")
 other = os.listdir("../dataset/other/without_changes")
@@ -114,9 +114,9 @@ def ada_boost_average_resize(frequency_vectors, all_label):
 
 def evaluate():
     for i in range(50):
-        descriptors, labels = BRISK_extraction.extract_features(sea_ocean, other, "without_changes")
-        codebook, cluster_nb = BRISK_extraction.K_means(descriptors)
-        frequency_vectors = BRISK_extraction.calculate_frequencies(descriptors, codebook, cluster_nb)
+        descriptors, labels = SURF_extraction.extract_features(sea_ocean, other, "without_changes")
+        codebook, cluster_nb = SURF_extraction.K_means(descriptors)
+        frequency_vectors = SURF_extraction.calculate_frequencies(descriptors, codebook, cluster_nb)
 
         t = threading.Thread(target=gaussian_img_not_resize(frequency_vectors, labels))
         t1 = threading.Thread(target=k_nn_img_not_resize(frequency_vectors, labels))
@@ -133,9 +133,9 @@ def evaluate():
         t10.start()
 
     for i in range(50):
-        descriptors, labels = BRISK_extraction.extract_features(sea_ocean, other, "average_resize")
-        codebook, cluster_nb = BRISK_extraction.K_means(descriptors)
-        frequency_vectors = BRISK_extraction.calculate_frequencies(descriptors, codebook, cluster_nb)
+        descriptors, labels = SURF_extraction.extract_features(sea_ocean, other, "average_resize")
+        codebook, cluster_nb = SURF_extraction.K_means(descriptors)
+        frequency_vectors = SURF_extraction.calculate_frequencies(descriptors, codebook, cluster_nb)
 
         t4 = threading.Thread(target=gaussian_with_average_resize(frequency_vectors, labels))
         t5 = threading.Thread(target=k_nn_with_average_resize(frequency_vectors, labels))

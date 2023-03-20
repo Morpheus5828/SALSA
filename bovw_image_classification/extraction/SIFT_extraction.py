@@ -12,9 +12,6 @@ from sift_detection.sift_detection import extract_SIFT_descriptors
 
 import os
 
-sea_ocean = os.listdir("../../dataset/sea_ocean/without_changes")
-other = os.listdir("../../dataset/other/without_changes")
-
 
 def extract_features(sea_ocean, other, repo):
     dataset_with_grey_filter = []
@@ -30,7 +27,7 @@ def extract_features(sea_ocean, other, repo):
         dataset_no_filter.append(cv2.imread("../dataset/other/" + repo + "/" + img))
         dataset_labels.append(-1)
 
-    SIFT = cv2.SIFT_create()
+    SIFT = cv2.xfeatures2d.SIFT(800)
 
     keypoints = []
     descriptors = []
@@ -57,7 +54,7 @@ def K_means(descriptors):
             all_descriptors.append(desc.astype('float'))
 
     all_descriptors = np.stack(all_descriptors)
-    cluster_nb = int(math.log(414))
+    cluster_nb = 414
     iters = 1
 
     codebook, variance = kmeans(all_descriptors, cluster_nb, iters)
