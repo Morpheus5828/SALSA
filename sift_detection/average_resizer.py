@@ -35,6 +35,3 @@ def resize_images(folder_path):
                     resized_image.save(resized_image_path)
             except OSError:
                 pass
-
-
-

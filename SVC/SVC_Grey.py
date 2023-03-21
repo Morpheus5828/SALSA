@@ -7,7 +7,8 @@ from sklearn.model_selection import GridSearchCV, cross_val_score
 
 def image_representation(image):
     img = Image.open(image)
-    image_resize = np.resize(img, (500, 500))
+    grey_img = img.convert('L')
+    image_resize = np.resize(grey_img, (643,405))
     return np.ravel(image_resize).tolist()
 
 
@@ -42,12 +43,13 @@ def search_best_parameters(train_data, algo_dico) :
     Y_train = train_data[0]
 
     svc = SVC()
-    grid = GridSearchCV(svc, algo_dico['param'], cv=5)
-    grid.fit(X_train,Y_train)
+
+    for i in range(5,11):
+        grid = GridSearchCV(svc, algo_dico['param'], cv=i)
+        grid.fit(X_train,Y_train)
+        print( i, grid.best_params_)
 
 
-
-    return grid.best_params_
 
 algo_dico = {
         'algorithm_name': 'SVC',
@@ -62,13 +64,20 @@ algo_dico = {
 traindata = label_data()
 
 
-#{'C': 10, 'gamma': 'scale', 'kernel': 'rbf', 'verbose': False}
+
+# 5 {'C': 1, 'gamma': 'scale', 'kernel': 'rbf', 'verbose': False}
+# 6 {'C': 10, 'gamma': 'scale', 'kernel': 'rbf', 'verbose': False}
+# 7 {'C': 100, 'gamma': 'scale', 'kernel': 'sigmoid', 'verbose': False}
+# 8 {'C': 100, 'gamma': 'scale', 'kernel': 'sigmoid', 'verbose': False}
+# 9 {'C': 100, 'gamma': 'scale', 'kernel': 'sigmoid', 'verbose': False}
+# 10 {'C': 100, 'gamma': 'scale', 'kernel': 'sigmoid', 'verbose': False}
+
 
 algo_dico_best_param = {
     'algorithm_name': 'SVC',
         'param': {
-            'C': 10,
-            'kernel': 'rbf',
+            'C': 1,
+            'kernel': 'sigmoid',
             'gamma': 'scale',
             'verbose': False
         }
@@ -104,7 +113,7 @@ def estimate_score(train_data, model, k) :
 
     return score_moyen
 
-model = fit_model(label_data(),algo_dico_best_param)
+# model = fit_model(label_data(),algo_dico_best_param)
 
 def writter(filename, data, model):
     pred = pred_data(data, model)
@@ -113,7 +122,8 @@ def writter(filename, data, model):
             file.write(filename[i] + " " + str(pred[i]) + "\n")
 
 
+
 data_test = test_data()
 filename = glob.glob("../dataset/testdata/*")
 
-writter(filename,data_test,model)
+# print(estimate_score(traindata, model, 5))
