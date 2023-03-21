@@ -1,7 +1,6 @@
 import os
 import time
-
-from image_detection import image_compare as ic
+import image_compare as ic
 
 sea_ocean = os.listdir("../dataset/sea_ocean")
 other = os.listdir("../dataset/other")
