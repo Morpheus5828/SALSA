@@ -41,39 +41,6 @@ On sépare les recherches selon le choix de l'algorithme de clustering. Une fois
 
 C'est un algorithme de clustering similaire à KMeans. La plus grande différence réside dans le fait que les clusters peuvent avoir une forme différente de la sphère. Toutefois, nous devons toujours choisir *le nombre de cluster.*
 
-## Sauvegarde
-
-Les valeurs intermédiaires sont sauvegardées dans le dossier `save`. Les fichiers sont répartis dans des sous répertoires.
-
-### Le dossier `features`
-Il contient les sauvegardes des features *(matrice de tous les descripteurs)* et des descripteurs de chaque image. Chaque couple *features/descriptors* est situé dans le dossier associé à son algorithme de description, comme `sift`.
-À l'intérieur, les dossiers sont séparés deux catégories, selon les données d'apprentissages choisis : 
-- `all`: toutes les images
-- `sea`: dossier Mer
-
-Dans chacun de ces deux dossiers, les données sont évidemment séparées en `descriptors` et `features`.
-
-Enfin, les fichiers sont nommés selon la règle suivante: `[resized]-<algorithme>-<données>-<nom>.txt`
-- **resized:** est optionnel. Il est écrit si les images ont été redimensionnées. Selon la méthode de redimensionnage utilisée, sa valeur est différente :
-    - *resized_w:* pour une redimension selon la largeur.
-    - *resized_h:* pour une redimension selon la hauteur.
-    - *resized_a:* pour une redimension selon la largeur et la hauteur. Dans ce cas, l'image est déformée.
-- **algorithme:** est remplacé par le nom de l'algorithme de description utilisé.
-- **données:** est remplacé par l'ensemble de données choisi pour extraire les motifs, c'est-à dire *all* ou *sea*.
-- **nom:** correspond à l'élément sauvegardé, c'est-à dire *features* ou *descriptors*.
-
-### Le dossier `clustering`
-Il contient les sauvegardes des models des algorithmes de clustering. Les fichiers sont d'abord situés dans le dossier correspond à l'algorithme de clustering utilisé, puis ils sont ensuite répartis selon l'algorithme de description utilisé.
-Les fichiers sont nommés selon la règle suivante: `[resized]-<algorithme_clustering>-<algorithme_description>-<données>-<nb_clusters>.joblib`
-- **resized:** est optionnel. Il est écrit si les images ont été redimensionnées. Selon la méthode de redimensionnage utilisée, sa valeur est différente :
-    - *resized_w:* pour une redimension selon la largeur.
-    - *resized_h:* pour une redimension selon la hauteur.
-    - *resized_a:* pour une redimension selon la largeur et la hauteur. Dans ce cas, l'image est déformée.
-- **algorithme_clustering:** est remplacé par le nom de l'algorithme de clustering utilisé.
-- - **algorithme_description:** est remplacé par le nom de l'algorithme de description utilisé.
-- **données:** est remplacé par l'ensemble de données choisi pour extraire les motifs, c'est-à dire *all* ou *sea*.
-- **nb_clusters:** correspond aux nombres de clusters utilisés par l'algorithme de clustering.
-
 
 # Résultats de Gaussian Mixture
 
