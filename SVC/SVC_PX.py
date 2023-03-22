@@ -5,29 +5,6 @@ import numpy as np
 from sklearn.svm import SVC
 from sklearn.model_selection import GridSearchCV, cross_val_score
 
-
-def average_width_height() :
-
-    width_size = float(0)
-    height_size = float(0)
-    counter = 0
-    img_mer = glob.glob("../dataset/sea_ocean/*")
-    img_other = glob.glob("../dataset/other/*")
-
-    for file_name in img_mer:
-        img = Image.open(file_name)
-        width_size = width_size + img.width
-        height_size = height_size + img.height
-        counter = counter + 1
-
-    for file_name in img_other:
-        img = Image.open(file_name)
-        width_size = width_size + img.width
-        height_size = height_size + img.height
-        counter = counter + 1
-
-    return width_size/counter, height_size/counter
-
 def image_representation(image):
     img = Image.open(image)
     image_resize = np.resize(img, (643,405))

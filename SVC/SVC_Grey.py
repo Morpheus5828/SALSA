@@ -16,8 +16,8 @@ def label_data():
     label = []
     data = []
 
-    img_mer = glob.glob("../dataset/sea_ocean/*")
-    img_other = glob.glob("../dataset/other/*")
+    img_mer = glob.glob("../dataset/sea_ocean/average_resize/*")
+    img_other = glob.glob("../dataset/other/average_resize/*")
 
     for file_name in img_mer:
         label.append(1)
