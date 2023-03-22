@@ -30,7 +30,7 @@ def average_width_height() :
 
 def image_representation(image):
     img = Image.open(image)
-    image_resize = np.resize(img, (643, 405))
+    image_resize = np.resize(img, (643,405))
     return np.ravel(image_resize).tolist()
 
 
@@ -38,8 +38,8 @@ def label_data():
     label = []
     data = []
 
-    img_mer = glob.glob("../dataset/sea_ocean/*")
-    img_other = glob.glob("../dataset/other/*")
+    img_mer = glob.glob("../dataset/sea_ocean/average_resize/*")
+    img_other = glob.glob("../dataset/other/average_resize/*")
 
     for file_name in img_mer:
         label.append(1)
@@ -102,6 +102,17 @@ algo_dico_best_param = {
         }
     }
 
+
+algo_dico_best_param2 = {
+    'algorithm_name': 'SVC',
+        'param': {
+            'C': 100,
+            'kernel': 'rbf',
+            'gamma': 'scale',
+            'verbose': False
+        }
+    }
+
 def fit_model(train_data, algo_dico):
     X_train = train_data[1]
     Y_train = train_data[0]
@@ -127,12 +138,18 @@ def estimate_score(train_data, model):
     X_train = train_data[1]
     Y_train = train_data[0]
 
-    scores =  cross_val_score(model, X_train, Y_train, cv=10)
-    score_moyen = scores.mean()
-    print(score_moyen)
+    for i in range(5,11):
+        if i < 7 :
+            scores =  cross_val_score(model_1, X_train, Y_train, cv= i)
+            score_moyen = scores.mean()
+            print(i, score_moyen)
+        else :
+            scores = cross_val_score(model_2, X_train, Y_train, cv=i)
+            score_moyen = scores.mean()
+            print(i, score_moyen)
 
-model = fit_model(label_data(),algo_dico_best_param)
-
+model_1 = fit_model(label_data(),algo_dico_best_param)
+model_2 = fit_model(label_data(),algo_dico_best_param2)
 def writter(filename, data, model):
     pred = pred_data(data, model)
     with open("prediction.txt","w") as file :
@@ -143,3 +160,5 @@ def writter(filename, data, model):
 data_test = test_data()
 filename = glob.glob("../dataset/testdata/*")
 
+estimate_score(traindata,model_1)
+# 6 0.7142857142857143

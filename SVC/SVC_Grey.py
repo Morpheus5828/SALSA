@@ -77,11 +77,31 @@ algo_dico_best_param = {
     'algorithm_name': 'SVC',
         'param': {
             'C': 1,
+            'kernel': 'rbf',
+            'gamma': 'scale',
+            'verbose': False
+        }
+    }
+algo_dico_best_param2 = {
+    'algorithm_name': 'SVC',
+        'param': {
+            'C': 10,
+            'kernel': 'rbf',
+            'gamma': 'scale',
+            'verbose': False
+        }
+    }
+
+algo_dico_best_param3 = {
+    'algorithm_name': 'SVC',
+        'param': {
+            'C': 1,
             'kernel': 'sigmoid',
             'gamma': 'scale',
             'verbose': False
         }
     }
+
 
 def fit_model(train_data, algo_dico):
     X_train = train_data[1]
@@ -104,16 +124,27 @@ def pred_data (data, model):
 
     return pred_label_data
 
-def estimate_score(train_data, model, k) :
+def estimate_score(train_data, model) :
     X_train = train_data[1]
     Y_train = train_data[0]
 
-    scores =  cross_val_score(model, X_train, Y_train, cv = k)
-    score_moyen = scores.mean()
+    for i in range(5, 11):
+        if i == 5:
+            scores = cross_val_score(model_1, X_train, Y_train, cv=i)
+            score_moyen = scores.mean()
+            print(i, score_moyen)
+        elif i == 6:
+            scores = cross_val_score(model_2, X_train, Y_train, cv=i)
+            score_moyen = scores.mean()
+            print(i, score_moyen)
+        else:
+            scores = cross_val_score(model_3, X_train, Y_train, cv=i)
+            score_moyen = scores.mean()
+            print(i, score_moyen)
 
-    return score_moyen
-
-# model = fit_model(label_data(),algo_dico_best_param)
+model_1 = fit_model(label_data(),algo_dico_best_param)
+model_2 = fit_model(label_data(), algo_dico_best_param2)
+model_3 = fit_model(label_data(), algo_dico_best_param3)
 
 def writter(filename, data, model):
     pred = pred_data(data, model)
@@ -126,4 +157,4 @@ def writter(filename, data, model):
 data_test = test_data()
 filename = glob.glob("../dataset/testdata/*")
 
-# print(estimate_score(traindata, model, 5))
+estimate_score(traindata,model_1)

@@ -115,7 +115,7 @@ algo_dico = {
 
 traindata = label_data()
 
-search_best_parameters(traindata,algo_dico)
+
 
 # {'C': 1, 'gamma': 'scale', 'kernel': 'sigmoid', 'verbose': False}
 
@@ -160,7 +160,7 @@ def estimate_score(train_data, model, k) :
 
     return score_moyen
 
-# model = fit_model(label_data(),algo_dico_best_param)
+model = fit_model(label_data(),algo_dico_best_param)
 
 def writter(filename, data, model):
     pred = pred_data(data, model)
@@ -173,4 +173,4 @@ def writter(filename, data, model):
 data_test = test_data()
 filename = glob.glob("../dataset/testdata/*")
 
-# print(estimate_score(traindata, model, 5))
+print(estimate_score(traindata, model, ))
