@@ -32,10 +32,6 @@ def load_test_data(folder):
         test_data["filenames"].append(filename)
     return test_data
 
-
-def compute_representation(data, nb_clusters):
-    representation.compute_fusion_representation(data, nb_clusters)
-
 # --------------------------------------------------------------------------------- #
 
 
