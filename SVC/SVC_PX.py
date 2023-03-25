@@ -15,8 +15,8 @@ def label_data():
     label = []
     data = []
 
-    img_mer = glob.glob("../dataset/sea_ocean/average_resize/*")
-    img_other = glob.glob("../dataset/other/average_resize/*")
+    img_mer = glob.glob("../dataset/sea_ocean/smallest_resize/*")
+    img_other = glob.glob("../dataset/other/smallest_resize/*")
 
     for file_name in img_mer:
         label.append(1)
@@ -95,7 +95,7 @@ def fit_model(train_data, algo_dico):
     Y_train = train_data[0]
 
     model = SVC(**algo_dico['param'])
-    model.fit(X_train,Y_train)
+    model.fit(X_train, Y_train)
     return model
 
 def pred_label(exemple, model):

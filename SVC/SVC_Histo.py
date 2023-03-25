@@ -7,7 +7,7 @@ from sklearn.model_selection import GridSearchCV, cross_val_score
 
 def image_representation(image):
     img = Image.open(image)
-    image_resize = np.resize(img, (3000,3264))
+    image_resize = np.resize(img, (643,405))
 
     hist, bins = np.histogram(image_resize.ravel(), 256, [0,256])
     hist_list = hist.tolist()
@@ -19,8 +19,8 @@ def label_data():
     label = []
     data = []
 
-    img_mer = glob.glob("../dataset/sea_ocean/*")
-    img_other = glob.glob("../dataset/other/*")
+    img_mer = glob.glob("../dataset/sea_ocean/average_resize/*")
+    img_other = glob.glob("../dataset/other/average_resize/*")
 
     for file_name in img_mer:
         label.append(1)
@@ -75,7 +75,7 @@ algo_dico_best_param = {
     'algorithm_name': 'SVC',
         'param': {
             'C': 1,
-            'kernel': 'sigmoid',
+            'kernel': 'rbf',
             'gamma': 'scale',
             'verbose': False
         }
@@ -124,4 +124,4 @@ def writter(filename, data, model):
 data_test = test_data()
 filename = glob.glob("../dataset/testdata/*")
 
-print(estimate_score(traindata, model, 5))
+print(estimate_score(traindata, model, 9))

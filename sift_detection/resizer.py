@@ -38,5 +38,8 @@ def resize_images(folder_path):
     else:
         print("Not image found")
 
+resize_images('../dataset/sea_ocean')
+resize_images('../dataset/other')
+
 
 
