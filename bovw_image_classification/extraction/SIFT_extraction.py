@@ -5,13 +5,12 @@ import time
 import cv2
 import numpy as np
 from scipy.cluster.vq import kmeans, vq
+import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import GaussianNB
 from sklearn.metrics import accuracy_score
-from sift_detection.sift_detection import extract_SIFT_descriptors
 
 import os
-
 
 def extract_features(sea_ocean, other, repo):
     dataset_with_grey_filter = []
@@ -27,7 +26,7 @@ def extract_features(sea_ocean, other, repo):
         dataset_no_filter.append(cv2.imread("../dataset/other/" + repo + "/" + img))
         dataset_labels.append(-1)
 
-    SIFT = cv2.xfeatures2d.SIFT(800)
+    SIFT = cv2.SIFT_create()
 
     keypoints = []
     descriptors = []
@@ -54,7 +53,7 @@ def K_means(descriptors):
             all_descriptors.append(desc.astype('float'))
 
     all_descriptors = np.stack(all_descriptors)
-    cluster_nb = 414
+    cluster_nb = 8
     iters = 1
 
     codebook, variance = kmeans(all_descriptors, cluster_nb, iters)
@@ -73,7 +72,6 @@ def calculate_frequencies(descriptors, codebook, cluster_nb):
             img_frequency_vector[word] += 1
         frequency_vectors.append(img_frequency_vector)
     frequency_vectors = np.stack(frequency_vectors)
+    plt.show()
     return frequency_vectors
-
-
 
