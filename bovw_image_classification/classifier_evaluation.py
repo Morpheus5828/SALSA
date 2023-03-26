@@ -5,6 +5,7 @@ from sklearn.linear_model import Perceptron
 from sklearn.ensemble import BaggingClassifier
 from sklearn.svm import SVC
 from bovw_image_classification.bovw_method import *
+from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import RandomForestClassifier
 from bovw_image_classification.extraction import BRISK_extraction, SIFT_extraction
@@ -98,7 +99,7 @@ def random_forest_class_img_not_resize(frequency_vectors, all_label):
 
 def ada_boost_img_not_resize(frequency_vectors, all_label):
     X_train, X_test, y_train, y_test = train_test_split(frequency_vectors, all_label, test_size=0.2)
-    clf = RandomForestClassifier(max_depth=2, random_state=0)
+    clf = AdaBoostClassifier(max_depth=2, random_state=0)
     y_pred = clf.fit(X_train, y_train).predict(X_test)
     score = accuracy_score(y_pred, y_test)
     print("without_changes ada", score)
@@ -106,7 +107,7 @@ def ada_boost_img_not_resize(frequency_vectors, all_label):
 
 def ada_boost_average_resize(frequency_vectors, all_label):
     X_train, X_test, y_train, y_test = train_test_split(frequency_vectors, all_label, test_size=0.2)
-    clf = RandomForestClassifier(max_depth=2, random_state=0)
+    clf = AdaBoostClassifier(max_depth=2, random_state=0)
     y_pred = clf.fit(X_train, y_train).predict(X_test)
     score = accuracy_score(y_pred, y_test)
     print("average_resize ada", score)
