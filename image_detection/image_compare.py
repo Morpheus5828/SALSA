@@ -9,10 +9,12 @@ from threading import Thread
 from matplotlib import pyplot as plt
 
 
+# by Marius THORRE
+
 ############################# class
 
 class Vector:
-    def __int__(self, source, destination, normal):
+    def __init__(self, source, destination, normal):
         self.source = source
         self.destination = destination
         self.normal = normal
@@ -23,8 +25,8 @@ class Vector:
     def display(self):
         return "source: ", self.source, " to: ", self.destination, " size: ", self.normal
 
-############################# function
 
+############################# function
 
 def get_keypoint(kp):
     return np.asarray([key_point.pt for key_point in kp])
@@ -97,16 +99,6 @@ def evaluate(kp1, kp2):
         print("Error: zero division")
 
 
-'''def display_kp(path):
-    img = cv2.imread(path)
-    fast = cv2.FastFeatureDetector_create()
-    kp = fast.detect(img, None)
-    img = cv2.drawKeypoints(img, kp, None, color=(255, 0, 0))
-    cv2.imshow(img)'''
-
-
-#display_kp("../dataset/sea_ocean_to_all/838s.jpg")
-
 def compare(img_source, img_dest):
     # 0. convert image to cv2 image
     img_source = get_cv2_img(img_source)
@@ -121,11 +113,6 @@ def compare(img_source, img_dest):
     # 3. evaluation
     evaluation = evaluate(img_source_kp, img_dest_kp)
 
-    #print("Evaluation: ", evaluation, "%")
-
-    #display_images_with_score(img_source, img_dest, evaluation)
-
     return evaluation
 
-
-compare("../dataset/sea_ocean_to_all/838s_bis.jpg", "../dataset/sea_ocean_to_all/838s_bis.jpg")
+# compare("../dataset/sea_ocean_to_all/838s_bis.jpg", "../dataset/sea_ocean_to_all/838s_bis.jpg")
