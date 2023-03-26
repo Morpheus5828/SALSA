@@ -12,6 +12,7 @@ from sift_detection.sift_detection import extract_SIFT_descriptors
 
 import os
 
+#by Marius THORRE
 
 def extract_features(sea_ocean, other, repo):
     dataset_with_grey_filter = []
