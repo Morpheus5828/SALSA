@@ -2,6 +2,10 @@ import numpy as np
 
 from sklearn.preprocessing import StandardScaler
 
+'''
+This file was authored by Chloe BUTTIGIEG.
+'''
+
 
 '''
 Computes occurrences histogram for a list of descriptor. Clusters are predicted from a given clustering model.

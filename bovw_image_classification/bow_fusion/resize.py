@@ -1,6 +1,10 @@
 import cv2 as cv
 
 '''
+This file was authored by Chloe BUTTIGIEG.
+'''
+
+'''
 Finds the minimum width of a list of images. Each image is a numpy array.
 Images can be previously opened with the function imread() of open-cv library.
 input = a list of images. 

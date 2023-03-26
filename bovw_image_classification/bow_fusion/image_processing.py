@@ -1,6 +1,10 @@
 import os
 import cv2 as cv
 
+'''
+This file was authored by Chloe BUTTIGIEG.
+'''
+
 
 '''
 Transforms pictures file such as png, jpg, jpeg... to a numpy array thank to open-cv imread() function.

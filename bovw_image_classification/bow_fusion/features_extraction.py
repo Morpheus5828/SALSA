@@ -5,6 +5,10 @@ import cv2 as cv
 
 from sklearn.feature_extraction.image import extract_patches_2d
 
+'''
+This file was authored by Chloe BUTTIGIEG.
+'''
+
 
 '''
 Computes SIFT keypoint and descriptor for a given image. The image is converted to grayscale.
@@ -53,6 +57,8 @@ def get_color_descriptor(image, nb_patches):
 
         descriptor.append([mean1, stdev1, mean2, stdev2, mean3, stdev3])
     return descriptor
+
+# --------------------------------------------------------------------------------- #
 
 
 '''

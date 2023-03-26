@@ -7,6 +7,10 @@ from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
 
 '''
+This file was authored by Chloe BUTTIGIEG.
+'''
+
+'''
 Determines the label according the category given.
 If the category is sea, the label is 1.
 Otherwise, the label is -1.

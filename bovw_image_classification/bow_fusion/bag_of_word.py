@@ -4,6 +4,9 @@ import image_processing as processing
 
 import cv2 as cv
 
+'''
+This file was authored by Chloe BUTTIGIEG.
+'''
 
 '''
 This class represents a Bag of Words that use the SIFT algorithm descriptor.
@@ -37,6 +40,8 @@ class SiftBow:
     def assign_clustering_model(self, clustering_model, nb_clusters):
         self.nb_clusters = nb_clusters
         self.clustering_model = clustering_model
+
+# --------------------------------------------------------------------------------- #
 
 
 '''

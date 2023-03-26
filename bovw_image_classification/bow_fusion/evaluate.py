@@ -6,6 +6,10 @@ import image_representation as representation
 import os
 
 '''
+This file was authored by Chloe BUTTIGIEG.
+'''
+
+'''
 Computes classifier from train data and save it. It also save clustering model computed. The classifier
 is saved under the directory 'save/model/classification' and both clustering model are saved in the
 directory : 'save/model/clustering'.
@@ -45,6 +49,8 @@ def compute_and_save_classifier(train_data_path, sift_clustering_filename, color
     model.save_model(sift_bow.clustering_model, sift_clustering_filename, "save/model/clustering")
     model.save_model(color_bow.clustering_model, color_clustering_filename, "save/model/clustering")
 
+# --------------------------------------------------------------------------------- #
+
 '''
 Predicts and writes in a file predicted labels from given data. The prediction file is saved
 under the directory 'save/prediction'.
@@ -83,6 +89,8 @@ def predict_test_data(prediction_filename, test_data_path, sift_clustering_path,
     # Predict
     model.write_predictions("save/prediction", prediction_filename, test_data, salsa)
 
+# --------------------------------------------------------------------------------- #
+
 
 '''
 Evaluate matching score between predictions and expected labels.
@@ -118,6 +126,8 @@ def evaluate_prediction(prediction_path, test_labeled_data_path):
             nb_correct += 1
 
     return nb_correct / len(labels)
+
+# --------------------------------------------------------------------------------- #
 
 
 '''

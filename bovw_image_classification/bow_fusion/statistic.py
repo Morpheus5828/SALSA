@@ -1,6 +1,10 @@
 import statistics
 
 '''
+This file was authored by Chloe BUTTIGIEG.
+'''
+
+'''
 Computes mean and standard-deviation for a list of float.
 
 input = a list of float

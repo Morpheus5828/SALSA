@@ -1,6 +1,10 @@
 from sklearn.mixture import GaussianMixture
 from sklearn.cluster import KMeans
 
+'''
+This file was authored by Chloe BUTTIGIEG.
+'''
+
 
 '''
 Computes Gaussian Mixture model from scikit-learn library on given data.
@@ -13,6 +17,8 @@ def get_gaussian_mixture_model(data, nb_mixtures):
     gmm = GaussianMixture(n_components=nb_mixtures)
     gmm.fit(data)
     return gmm
+
+# --------------------------------------------------------------------------------- #
 
 
 '''
