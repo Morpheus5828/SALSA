@@ -30,7 +30,7 @@ This file is used for get classifier score
 Run evaluate() function and then getScore()
 '''
 
-classifier_result = open("classifier_result.txt", "w")
+classifier_result = open("classifier_result.txt.txt", "w")
 
 def gaussian_img_not_resize(frequency_vectors, all_label):
     X_train, X_test, y_train, y_test = train_test_split(frequency_vectors, all_label, test_size=0.2)
@@ -196,7 +196,7 @@ def evaluate():
 
 
 def getScore():
-    file_result = open("classifier_result.txt")
+    file_result = open("classifier_result.txt.txt")
 
     file_result = file_result.read().split()
 
