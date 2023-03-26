@@ -12,6 +12,8 @@ from sklearn.metrics import accuracy_score
 
 import os
 
+#by Marius THORRE
+
 def extract_features(sea_ocean, other, repo):
     dataset_with_grey_filter = []
     dataset_no_filter = []

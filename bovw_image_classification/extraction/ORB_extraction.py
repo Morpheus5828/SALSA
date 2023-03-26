@@ -12,6 +12,8 @@ from sift_detection.sift_detection import extract_SIFT_descriptors
 
 import os
 
+#by Marius THORRE
+
 sea_ocean = os.listdir("../../dataset/sea_ocean/without_changes")
 other = os.listdir("../../dataset/other/without_changes")
 

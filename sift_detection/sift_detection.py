@@ -7,10 +7,14 @@ import cv2
 
 from matplotlib import pyplot as plt
 
-#TODO decode comment if extract_SIFT_descriptors not using
+
 sea_ocean = os.listdir("../dataset/sea_ocean")
 other = os.listdir("../dataset/other")
 
+# By Marius THORRE
+'''
+First file created in project for try SIFT object, methods and functionalities
+'''
 
 def extract_SIFT_descriptors(img1):
     img1 = cv2.imread(img1)

@@ -6,6 +6,12 @@ from image_detection import image_compare as ic
 sea_ocean = os.listdir("../dataset/sea_ocean")
 other = os.listdir("../dataset/other")
 
+# by Marius THORRE
+
+'''
+This file is used to compare each keypoint
+'''
+
 
 def main():
     start = time.time()
