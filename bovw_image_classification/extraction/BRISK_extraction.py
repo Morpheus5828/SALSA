@@ -54,10 +54,11 @@ def extract_features(sea_ocean, other, repo):
     for index in sorted(drop_img, reverse=True):
         del descriptors[index], keypoints[index]
 
+    # put all descriptor in one and unique np array
     all_desc = []
     for img_desc in descriptors:
         for desc in img_desc:
-            all_desc.append(desc.astype('float'))
+            all_desc.append(desc.astype('float')) # maybe desc contains float value
 
     return descriptors, dataset_labels
 

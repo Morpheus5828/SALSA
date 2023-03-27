@@ -71,7 +71,6 @@ def display_images_with_score(img1, img2, score):
     _, axis = plt.subplots(ncols=2, figsize=(12, 3))
     axis[0].imshow(img1)
     axis[1].imshow(img2)
-    # axis[1].set_title("Score: ", score)
     plt.show()
 
 
