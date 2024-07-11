@@ -4,6 +4,7 @@ https://docs.opencv.org/4.x/da/df5/tutorial_py_sift_intro.html
 """
 
 import os
+from tqdm import tqdm
 import numpy as np
 import cv2 as cv
 
@@ -11,13 +12,13 @@ import cv2 as cv
 def get_kp_descriptors(
         path: str,
         draw_kp: bool = False,
-        filter_color: int = cv.COLOR_BGR2GRAY
+        filter_color: int = cv.COLOR_RGB2GRAY
 ) -> tuple:
     if os.path.exists(path):
         img = cv.imread(path)
         filter = cv.cvtColor(img, filter_color)
         sift = cv.SIFT_create()
-        kp, des = sift.detectAndCompute(filter,None)
+        kp, des = sift.detectAndCompute(filter, None)
         if draw_kp:
             img = cv.drawKeypoints(filter, kp, img)
             path = os.path.splitext(os.path.basename(path))[0]
@@ -27,14 +28,24 @@ def get_kp_descriptors(
         print("Path not exist")
 
 
-def extract_feature(images):
+def extract_feature(images: np.ndarray) -> tuple:
     keypoints = []
     descriptors = []
     sift = cv.SIFT_create()
-    for img in images:
-        if np.all(img) != 0:
+    for img_index in tqdm(range(images.shape[0])):
+        img = images[img_index]
+        if np.any(img) != 0:
             kp, desc = sift.detectAndCompute(img, None)
-            keypoints.append(kp)
-            descriptors.append(desc)
+            if desc is not None:
+                keypoints.append(kp)
+                descriptors.append(desc)
     return keypoints, descriptors
+
+
+def _process_descriptor(desc):
+    descriptors = np.array(desc[0])
+    for descriptor in desc[1:]:
+        descriptors = np.vstack((descriptors, descriptor))
+
+    return descriptors
 

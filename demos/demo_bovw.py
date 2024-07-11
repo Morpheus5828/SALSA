@@ -25,14 +25,25 @@ if __name__ == "__main__":
         path=dataset_path,
         metric=["average"]
     )
-    width, height = infos["average"]
+    #width, height = infos["average"]
+    width, height = 500, 500
 
-    print("Normalization ..")
-    Xdata, ydata = normalize_img(path=dataset_path, height=int(height), width=int(width))
-    print("Data augmentation ..")
-    Xdata, ydata = data_augmentation(Xdata, ydata, int(width), int(height))
+    Xdata, ydata = normalize_img(
+        path=dataset_path,
+        height=int(height),
+        width=int(height)
+    )
+    # Do it just if width and height are the same
+    Xdata, ydata = data_augmentation(
+        all_images=Xdata,
+        all_labels=ydata
+    )
 
-    tfidf = Bag_Of_Visual_Words(Xdata=Xdata, ydata=ydata)
+    tfidf = Bag_Of_Visual_Words(
+        X_data=Xdata,
+        y_data=ydata,
+        extract_method="SIFT"
+    )
 
     X_train, X_test, y_train, y_test = train_test_split(
         tfidf,
@@ -40,7 +51,7 @@ if __name__ == "__main__":
         test_size=0.30,
         random_state=42
     )
-
+    print("Classification ..")
     ClassifierRunning(
         X_train=X_train,
         y_train=y_train,
