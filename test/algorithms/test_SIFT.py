@@ -7,7 +7,7 @@ import salsa.algorithms.SIFT as SIFT
 
 class testSift(TestCase):
     def test_get_fp_descriptors(self):
-        path = "../../resources/other/ouie.jpeg"
+        path = "../../resources/dataset/other/ouie.jpeg"
         kp, des = SIFT.get_kp_descriptors(path, draw_kp=True)
         self.assertTrue(len(kp) == 311)
         self.assertTrue(len(des) == 311)
