@@ -2,15 +2,15 @@
 ..moduleauthor::Marius THORRE
 """
 import sys, os
-from salsa.preprocessing.image_info import img_folder_sizes_infos
+from salsa.tools.image_info import img_folder_sizes_infos
 script_dir = os.path.dirname(os.path.abspath(__file__))
-project_root = os.path.abspath(os.path.join(script_dir, '../../'))
+project_root = os.path.abspath(os.path.join(script_dir, '../'))
 if project_root not in sys.path:
     sys.path.append(project_root)
 
 
 if __name__ == "__main__":
-    dataset_path = os.path.join(project_root, "resources", "dataset")
+    dataset_path = os.path.join(project_root, "resources", "../resources/dataset")
 
     infos = img_folder_sizes_infos(
         path=dataset_path,

@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 from PIL import Image
 
 
-def size_img(
+def img_folder_sizes_infos(
         path: str,
         metric: list,
         plot_img_size: bool = False,
@@ -39,11 +39,10 @@ def size_img(
                     plt.ylabel("Height")
                 c += 1
     result = {}
-    print(width)
     for m in metric:
-        if m == "meaning":
-            plt.scatter(np.mean(width), np.mean(height), c="black", label="Meaning")
-            result["meaning"] = (np.mean(width), np.mean(height))
+        if m == "average":
+            plt.scatter(np.mean(width), np.mean(height), c="black", label="Average")
+            result["average"] = (np.mean(width), np.mean(height))
         elif m == "Q1":
             plt.scatter(np.percentile(width, 25), np.percentile(height, 25), c="#df397f", label="Q1")
             result["Q1"] = (np.percentile(width, 25), np.percentile(height, 25))
@@ -65,14 +64,54 @@ def size_img(
 def normalize_img(
     path: str,
     width: int,
-    height: int,
+    height: int
 ):
     img_normalise = []
-    for folder in os.listdir(path):
-        for image in os.listdir(path + "/" + folder):
-            img = cv2.imread(path + "/" + folder + "/" + image)
+    labels = []
+    for l, folder in enumerate(os.listdir(path)):
+        for image in os.listdir(os.path.join(path, folder)):
+            img = cv2.imread(os.path.join(path, folder, image))
+            img = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
             img = cv2.resize(img, dsize=(width, height))
             img_normalise.append(img)
-    return np.array(img_normalise)
+            labels.append(l)
+    return np.array(img_normalise), np.array(labels)
+
+
+def data_augmentation(
+        path: str,
+        width: int,
+        height: int
+):
+    img_normalise = []
+    labels = []
+    for l, folder in enumerate(os.listdir(path)):
+        for image in os.listdir(os.path.join(path, folder)):
+            img = cv2.imread(os.path.join(path, folder, image))
+            img = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
+            img = cv2.resize(img, dsize=(width, height))
+            img_normalise.append(img)
+            labels.append(l)
+            cX, cY = width // 2, height // 2
+            M = cv2.getRotationMatrix2D((cX, cY), angle=45, scale=1.0)
+            rotated = cv2.warpAffine(img, M, (width, height))
+            img_normalise.append(rotated)
+            labels.append(l)
+            cX, cY = width // 2, height // 2
+            M = cv2.getRotationMatrix2D((cX, cY), angle=90, scale=1.0)
+            rotated = cv2.warpAffine(img, M, (width, height))
+            img_normalise.append(rotated)
+            labels.append(l)
+            cX, cY = width // 2, height // 2
+            M = cv2.getRotationMatrix2D((cX, cY), angle=135, scale=1.0)
+            rotated = cv2.warpAffine(img, M, (width, height))
+            img_normalise.append(rotated)
+            labels.append(l)
+            cX, cY = width // 2, height // 2
+            M = cv2.getRotationMatrix2D((cX, cY), angle=180, scale=1.0)
+            rotated = cv2.warpAffine(img, M, (width, height))
+            img_normalise.append(rotated)
+            labels.append(l)
+    return np.array(img_normalise), np.array(labels)
 
 
