@@ -41,7 +41,7 @@ def _get_visual_words(data_desc: np.ndarray, codebook: np.ndarray) -> np.ndarray
     return visual_words
 
 
-def _get_frequencies(visual_words: np.ndarray, k_cluster: int) -> np.ndarray:
+def _get_frequencies(visual_words: np.ndarray, k_cluster: int, dataset_size: int) -> np.ndarray:
     frequency_vectors = []
     for img_visual_words in visual_words:
         img_frequency_vector = np.zeros(k_cluster)
@@ -50,7 +50,7 @@ def _get_frequencies(visual_words: np.ndarray, k_cluster: int) -> np.ndarray:
         frequency_vectors.append(img_frequency_vector)
     frequency_vectors = np.stack(frequency_vectors)
     df = np.sum(frequency_vectors > 0, axis=0)
-    idf = np.log(len(X_data) / df)
+    idf = np.log(dataset_size / df)
     return frequency_vectors * idf
 
 
@@ -86,7 +86,8 @@ def Bag_Of_Visual_Words(
 
     frequency_vectors = _get_frequencies(
         visual_words=visual_words,
-        k_cluster=k_cluster
+        k_cluster=k_cluster,
+        dataset_size=len(X_data)
     )
 
     return frequency_vectors
