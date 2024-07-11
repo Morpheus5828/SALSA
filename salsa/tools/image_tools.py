@@ -7,6 +7,7 @@ import numpy as np
 import os, sys
 import matplotlib.pyplot as plt
 import cv2
+from tqdm import tqdm
 from PIL import Image
 import random
 from sklearn.cluster import KMeans
