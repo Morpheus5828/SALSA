@@ -42,7 +42,7 @@ if __name__ == "__main__":
     tfidf = Bag_Of_Visual_Words(
         X_data=Xdata,
         y_data=ydata,
-        extract_method="BRISK"
+        extract_method="SIFT"
     )
 
     X_train, X_test, y_train, y_test = train_test_split(
