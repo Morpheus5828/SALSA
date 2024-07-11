@@ -4,7 +4,8 @@
 
 import cv2
 import numpy as np
-import os
+import os, sys
+import matplotlib.pyplot as plt
 import cv2
 from PIL import Image
 import random
