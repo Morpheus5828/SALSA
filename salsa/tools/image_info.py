@@ -61,57 +61,22 @@ def img_folder_sizes_infos(
     return result
 
 
-def normalize_img(
-    path: str,
-    width: int,
-    height: int
-):
-    img_normalise = []
-    labels = []
-    for l, folder in enumerate(os.listdir(path)):
-        for image in os.listdir(os.path.join(path, folder)):
-            img = cv2.imread(os.path.join(path, folder, image))
-            img = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
-            img = cv2.resize(img, dsize=(width, height))
-            img_normalise.append(img)
-            labels.append(l)
-    return np.array(img_normalise), np.array(labels)
+def get_frequency(path):
+    img = np.array(Image.open(path))
+    rgb_values = np.arange(256)
+    red_occurencies, blue_occurencies, green_occurencies = np.zeros(256), np.zeros(256), np.zeros(256)
+    for k in rgb_values:
+        red_occurencies[k] = np.count_nonzero(img[:, :, 0] == k)
+        blue_occurencies[k] = np.count_nonzero(img[:, :, 1] == k)
+        green_occurencies[k] = np.count_nonzero(img[:, :, 2] == k)
+    plt.bar(rgb_values, red_occurencies, color="red")
+    plt.bar(rgb_values, blue_occurencies, color="blue")
+    plt.bar(rgb_values, green_occurencies, color="green")
+    plt.xlabel("RGB 0 to 255")
+    plt.ylabel("Frequencies")
+    plt.title(f"Frequencies of {os.path.basename(path)} img")
+    plt.show()
 
 
-def data_augmentation(
-        path: str,
-        width: int,
-        height: int
-):
-    img_normalise = []
-    labels = []
-    for l, folder in enumerate(os.listdir(path)):
-        for image in os.listdir(os.path.join(path, folder)):
-            img = cv2.imread(os.path.join(path, folder, image))
-            img = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
-            img = cv2.resize(img, dsize=(width, height))
-            img_normalise.append(img)
-            labels.append(l)
-            cX, cY = width // 2, height // 2
-            M = cv2.getRotationMatrix2D((cX, cY), angle=45, scale=1.0)
-            rotated = cv2.warpAffine(img, M, (width, height))
-            img_normalise.append(rotated)
-            labels.append(l)
-            cX, cY = width // 2, height // 2
-            M = cv2.getRotationMatrix2D((cX, cY), angle=90, scale=1.0)
-            rotated = cv2.warpAffine(img, M, (width, height))
-            img_normalise.append(rotated)
-            labels.append(l)
-            cX, cY = width // 2, height // 2
-            M = cv2.getRotationMatrix2D((cX, cY), angle=135, scale=1.0)
-            rotated = cv2.warpAffine(img, M, (width, height))
-            img_normalise.append(rotated)
-            labels.append(l)
-            cX, cY = width // 2, height // 2
-            M = cv2.getRotationMatrix2D((cX, cY), angle=180, scale=1.0)
-            rotated = cv2.warpAffine(img, M, (width, height))
-            img_normalise.append(rotated)
-            labels.append(l)
-    return np.array(img_normalise), np.array(labels)
 
 
