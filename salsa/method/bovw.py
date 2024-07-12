@@ -59,16 +59,16 @@ def Bag_Of_Visual_Words(
         y_data: np.ndarray,
         extract_method: str = "SIFT",
         k_cluster: int = 30
-):
+) -> tuple:
     X_train, X_test, y_train, y_test = train_test_split(X_data, y_data, test_size=0.30)
     data_desc = None
     train_desc = None
     if extract_method == "SIFT":
-        _, data_desc = SIFT.extract_feature(X_data)
-        _, train_desc = SIFT.extract_feature(X_train)
+        _, data_desc, y_data = SIFT.extract_feature(X_data, y_data)
+        _, train_desc, y_train = SIFT.extract_feature(X_train, y_train)
     elif extract_method == "BRISK":
-        _, data_desc = BRISK.extract_feature(X_data)
-        _, train_desc = BRISK.extract_feature(X_train)
+        _, data_desc, y_data = BRISK.extract_feature(X_data, y_data)
+        _, train_desc, y_train = BRISK.extract_feature(X_train, y_train)
     else:
         print("Error: Extract method not recognized")
 
@@ -83,11 +83,9 @@ def Bag_Of_Visual_Words(
         data_desc=data_desc,
         codebook=codebook
     )
-
     frequency_vectors = _get_frequencies(
         visual_words=visual_words,
         k_cluster=k_cluster,
         dataset_size=len(X_data)
     )
-
-    return frequency_vectors
+    return frequency_vectors, y_data

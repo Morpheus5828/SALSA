@@ -19,27 +19,28 @@ from salsa.learning.classifiers import ClassifierRunning
 import salsa.algorithms.SIFT as SIFT
 
 if __name__ == "__main__":
-    dataset_path = os.path.join(project_root, "resources", "../resources/dataset")
+    dataset_path = os.path.join(project_root, "resources", "dataset")
 
     infos = img_folder_sizes_infos(
         path=dataset_path,
         metric=["average"]
     )
     #width, height = infos["average"]
-    width, height = 500, 500
+    width, height = 600, 600
 
     Xdata, ydata = normalize_img(
         path=dataset_path,
         height=int(height),
-        width=int(height)
+        width=int(width)
     )
+
     # Do it just if width and height are the same
     Xdata, ydata = data_augmentation(
         all_images=Xdata,
         all_labels=ydata
     )
 
-    tfidf = Bag_Of_Visual_Words(
+    tfidf, ydata = Bag_Of_Visual_Words(
         X_data=Xdata,
         y_data=ydata,
         extract_method="SIFT"
@@ -52,6 +53,7 @@ if __name__ == "__main__":
         random_state=42
     )
     print("Classification ..")
+    print(X_test.shape)
     ClassifierRunning(
         X_train=X_train,
         y_train=y_train,

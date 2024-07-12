@@ -28,9 +28,12 @@ def normalize_img(
         for image in os.listdir(os.path.join(path, folder)):
             img = cv2.imread(os.path.join(path, folder, image))
             img = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
-            img = cv2.resize(img, dsize=(width, height))
-            img_normalise.append(img)
-            labels.append(l)
+            sift = cv2.SIFT_create()
+            kp, desc = sift.detectAndCompute(img, None)
+            if desc is not None:
+                img = cv2.resize(img, dsize=(width, height))
+                img_normalise.append(img)
+                labels.append(l)
     return np.array(img_normalise), np.array(labels)
 
 

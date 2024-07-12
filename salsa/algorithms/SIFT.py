@@ -28,7 +28,7 @@ def get_kp_descriptors(
         print("Path not exist")
 
 
-def extract_feature(images: np.ndarray) -> tuple:
+def extract_feature(images: np.ndarray, label: np.ndarray) -> tuple:
     keypoints = []
     descriptors = []
     sift = cv.SIFT_create()
@@ -39,7 +39,9 @@ def extract_feature(images: np.ndarray) -> tuple:
             if desc is not None:
                 keypoints.append(kp)
                 descriptors.append(desc)
-    return keypoints, descriptors
+            else:
+                label = np.delete(label, img_index)
+    return keypoints, descriptors, label
 
 
 def _process_descriptor(desc):

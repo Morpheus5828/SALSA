@@ -12,5 +12,5 @@ if project_root not in sys.path:
 import salsa.algorithms.SIFT as SIFT
 
 if __name__ == "__main__":
-    path = os.path.join(project_root, "resources/dataset/other/ouie.jpeg")
+    path = os.path.join(project_root, "resources/dataset/other/ll9944.png")
     kp, des = SIFT.get_kp_descriptors(path, draw_kp=True)

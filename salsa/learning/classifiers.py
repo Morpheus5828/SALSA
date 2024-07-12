@@ -6,6 +6,7 @@ from sklearn.cluster import KMeans
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import accuracy_score, classification_report
 from sklearn.model_selection import cross_val_score, GridSearchCV
+import pickle
 
 classifiers = {
     'LogisticRegression': LogisticRegression(),
@@ -66,5 +67,9 @@ class ClassifierRunning:
 
         for name, estimator in best_estimators.items():
             print(f"\nEvaluating {name} on test data...")
+            if name == "GradientBoosting":
+                with open("addD_1652_gradientBoosting.pkl", 'wb') as file:
+                    pickle.dump(estimator, file)
+
             y_pred = estimator.predict(self.X_test)
             print(classification_report(self.y_test, y_pred))
