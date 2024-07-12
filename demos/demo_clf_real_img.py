@@ -30,7 +30,6 @@ if __name__ == "__main__":
         print(f"Model used: {model_file_path}")
         with open(os.path.join(project_root, "resources", "model", model_file_path), 'rb') as file:
             model = pickle.load(file)
-        print(Xdata.shape, ydata.shape)
         tfidf, ydata_update = Bag_Of_Visual_Words(
             X_data=Xdata,
             y_data=ydata,

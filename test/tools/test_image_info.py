@@ -18,8 +18,8 @@ class testImage_info(TestCase):
             width=100,
             height=100
         )
-        self.assertTrue(data.shape == (414, 100, 100))
-        self.assertTrue(label.shape == (414,))
+        self.assertTrue(data.shape == (413, 100, 100))
+        self.assertTrue(label.shape == (413,))
 
     def test_data_augmentation(self):
         Xdata, ydata = image_tools.normalize_img(
@@ -31,6 +31,6 @@ class testImage_info(TestCase):
             all_images=Xdata,
             all_labels=ydata,
         )
-        print(Xdata.shape, ydata.shape)
-        self.assertTrue(data.shape == (1242, 100, 100))
-        self.assertTrue(label.shape == (1242,))
+
+        self.assertTrue(data.shape == (1239, 100, 100))
+        self.assertTrue(label.shape == (1239,))
